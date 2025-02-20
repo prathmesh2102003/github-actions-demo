@@ -3,11 +3,10 @@ name: Trigger Workflow Demo
 on:
   push:
     branches:
-      - main  # Runs when code is pushed to the main branch
-      - dev   # Runs when code is pushed to the dev branch
+      - master
   pull_request:
     branches:
-      - main  # Runs when a PR is opened or updated for the main branch
+      - master
   workflow_dispatch:  # Allows manual trigger from GitHub Actions UI
   schedule:
     - cron: "0 5 * * *"  # Runs daily at 5 AM UTC
@@ -18,12 +17,12 @@ jobs:
 
     steps:
       - name: Print Trigger Information
-        run: echo "Triggered by: ${{ github.event_name }}"
+        run: echo "Triggered by owner"
 
       - name: Print Committer Name (if push)
-        if: github.event_name == 'push'
-        run: echo "Commit made by: ${{ github.actor }}"
+        if: ${{ github.event_name == 'push' }}
+        run: echo "Commit made by owner"
 
       - name: Print Pull Request Info (if PR)
-        if: github.event_name == 'pull_request'
-        run: echo "Pull request by: ${{ github.actor }}"
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "Pull request by owner"
