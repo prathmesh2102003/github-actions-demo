@@ -3,10 +3,10 @@ name: Advanced Workflow
 on:
   push:
     branches:
-      - main  # Run when pushing to the main branch
+      - master  # Run when pushing to the main branch
   pull_request:
     branches:
-      - main  # Run on pull requests targeting main
+      - master  # Run on pull requests targeting main
 
 jobs:
   build:
@@ -24,3 +24,9 @@ jobs:
 
       - name: Print Hello with Date
         run: echo "Hello, GitHub Actions! Today is $(date)"
+
+      - name: new step
+        run: echo "Workflow is running successfully"
+
+      - name: GitHub username
+        run: echo "User: ${{github.actor}}"
