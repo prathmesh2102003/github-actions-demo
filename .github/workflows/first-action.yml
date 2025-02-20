@@ -1,22 +1,29 @@
-name: Advanced Workflow
+name: Trigger Workflow Demo
+
 on:
   push:
     branches:
-      - master
+      - main  # Runs when code is pushed to the main branch
+      - dev   # Runs when code is pushed to the dev branch
   pull_request:
     branches:
-      - master
+      - main  # Runs when a PR is opened or updated for the main branch
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions UI
+  schedule:
+    - cron: "0 5 * * *"  # Runs daily at 5 AM UTC
+
 jobs:
-  build:
+  check-trigger:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - name: Print the Current Directory
-        run: pwd
-      - name: List Files in Repo
-        run: ls -l
-      - name: Print Hello with Date
-        run: echo "Hello, GitHub Actions! Today is $(date)"
-      - name: new step
-        run: echo "Workflow is running successfully"
+      - name: Print Trigger Information
+        run: echo "Triggered by: ${{ github.event_name }}"
+
+      - name: Print Committer Name (if push)
+        if: github.event_name == 'push'
+        run: echo "Commit made by: ${{ github.actor }}"
+
+      - name: Print Pull Request Info (if PR)
+        if: github.event_name == 'pull_request'
+        run: echo "Pull request by: ${{ github.actor }}"
