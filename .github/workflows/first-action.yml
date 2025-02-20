@@ -1,12 +1,12 @@
 name: Advanced Workflow
 
-on:
+on:  
   push:
     branches:
-      - main  # Run when pushing to the main branch
+      - master  # Run when pushing to the main branch
   pull_request:
     branches:
-      - main  # Run on pull requests targeting main
+      - master  # Run on pull requests targeting main
 
 jobs:
   build:
