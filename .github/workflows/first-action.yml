@@ -1,10 +1,26 @@
-name: First GitHub Action
+name: Advanced Workflow
 
-on: push  # Trigger when code is pushed
+on:
+  push:
+    branches:
+      - main  # Run when pushing to the main branch
+  pull_request:
+    branches:
+      - main  # Run on pull requests targeting main
 
 jobs:
-  say-hello:
-    runs-on: ubuntu-latest  # Use Ubuntu runner
+  build:
+    runs-on: ubuntu-latest  # Use Ubuntu for execution
+
     steps:
-      - name: Print Hello World
-        run: echo "Hello, GitHub Actions!"
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # Get the code from GitHub
+
+      - name: Print the Current Directory
+        run: pwd  # Show the working directory
+
+      - name: List Files in Repo
+        run: ls -l  # Show all files
+
+      - name: Print Hello with Date
+        run: echo "Hello, GitHub Actions! Today is $(date)"
