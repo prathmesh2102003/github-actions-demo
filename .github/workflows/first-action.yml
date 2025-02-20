@@ -1,6 +1,6 @@
 name: Advanced Workflow
 
-on:  
+on:
   push:
     branches:
       - master  # Run when pushing to the main branch
