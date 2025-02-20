@@ -1,32 +1,24 @@
 name: Advanced Workflow
-
 on:
   push:
     branches:
-      - master  # Run when pushing to the main branch
+      - master
   pull_request:
     branches:
-      - master  # Run on pull requests targeting main
-
+      - master
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use Ubuntu for execution
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3  # Get the code from GitHub
-
+        uses: actions/checkout@v3
       - name: Print the Current Directory
-        run: pwd  # Show the working directory
-
+        run: pwd
       - name: List Files in Repo
-        run: ls -l  # Show all files
-
+        run: ls -l
       - name: Print Hello with Date
         run: echo "Hello, GitHub Actions! Today is $(date)"
-
       - name: new step
         run: echo "Workflow is running successfully"
-
       - name: GitHub username
         run: echo "User: ${{ github.actor }}"
