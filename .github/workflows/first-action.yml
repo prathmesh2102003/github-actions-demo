@@ -20,5 +20,3 @@ jobs:
         run: echo "Hello, GitHub Actions! Today is $(date)"
       - name: new step
         run: echo "Workflow is running successfully"
-      - name: GitHub username
-        run: echo "User: ${{ github.actor }}"
