@@ -1,28 +1,34 @@
-name: Trigger Workflow Demo
+name: Multi-Job Workflow
 
-on:
+on:  
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  workflow_dispatch:  # Allows manual trigger from GitHub Actions UI
-  schedule:
-    - cron: "0 5 * * *"  # Runs daily at 5 AM UTC
+      - main  
 
 jobs:
-  check-trigger:
+  job1:
+    name: First Job
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Trigger Information
-        run: echo "Triggered by owner"
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Print Committer Name (if push)
-        if: ${{ github.event_name == 'push' }}
-        run: echo "Commit made by owner"
+      - name: Print a Message
+        run: echo "This is Job 1 running on Ubuntu"
 
-      - name: Print Pull Request Info (if PR)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo "Pull request by owner"
+  job2:
+    name: Second Job
+    runs-on: windows-latest  # Run on Windows instead of Ubuntu
+    needs: job1  # Runs only after job1 completes successfully
+
+    steps:
+      - name: Print a Message
+        run: echo "This is Job 2 running on Windows"
+
+  job3:
+    name: Independent Job
+    runs-on: macos-latest  # Run on macOS
+    steps:
+      - name: Print a Message
+        run: echo "This is Job 3 running independently"
