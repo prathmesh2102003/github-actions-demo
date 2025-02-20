@@ -29,4 +29,4 @@ jobs:
         run: echo "Workflow is running successfully"
 
       - name: GitHub username
-        run: echo "User: ${{github.actor}}"
+        run: echo "User: ${{ github.actor }}"
