@@ -28,7 +28,8 @@ jobs:
 
   job3:
     name: Independent Job
-    runs-on: macos-latest  # Run on macOS
+    runs-on: macos-latest # Run on macOS
+    needs: job2
     steps:
       - name: Print a Message
         run: echo "This is Job 3 running independently"
