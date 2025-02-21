@@ -1,21 +1,33 @@
-name: Manual Trigger with Inputs
+name: Cache Demo
+
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Select the deployment environment"
-        required: true
-        default: "staging"
-        type: choice
-        options:
-          - Development
-          - Testing
-          - Deployment
+  push:
+    branches:
+      - master
 
 jobs:
-  deploy:
+  cache-example:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Selected Environment
-        run: echo "Deploying to ${{ github.event.inputs.environment }}"
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Python Application
+        run: python app.py
