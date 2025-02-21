@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print OS Info
-        run: uname -a
+        run: cat /etc/os-release
 
   windows-job:
     name: Run on Windows
