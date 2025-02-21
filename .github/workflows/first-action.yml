@@ -1,30 +1,43 @@
-name: Runner Demo
+name: Secrets and Env Vars Demo
 
-on:  
+on:
   push:
     branches:
-      - master
+      - main
+
+# 🔹 Define Workflow-Level Environment Variables
+env:
+  GLOBAL_VAR: "This is a workflow-level variable"
 
 jobs:
-  job1:
-    name: Run on Ubuntu
+  env-job:
+    name: Using Environment Variables
     runs-on: ubuntu-latest
-    steps:
-      - name: Print OS Info
-        run: cat /etc/os-release
 
-  job2:
-    name: Run on Windows
-    runs-on: windows-latest
-    needs: job1  # Runs after job1 completes successfully
-    steps:
-      - name: Print OS Info
-        run: systeminfo
+    env:
+      JOB_VAR: "This is a job-level variable"
 
-  job3:
-    name: Run on macOS
-    runs-on: macos-latest
-    needs: job2  # Runs after job2 completes successfully
     steps:
-      - name: Print OS Info
-        run: uname -a
+      - name: Print Global Variable
+       # run: echo "Global Variable: $GLOBAL_VAR"
+
+      - name: Print Job Variable
+      #  run: echo "Job Variable: $JOB_VAR"
+
+      - name: Define a Step Variable
+        env:
+          STEP_VAR: "This is a step-level variable"
+      #  run: echo "Step Variable: $STEP_VAR"
+
+  secret-job:
+    name: Using Secrets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Access Secret
+        env:
+          SECRET_VALUE: ${{ secrets.MY_SECRET }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "The secret value is: $SECRET_VALUE"
+          echo "API Key is: $API_KEY"
