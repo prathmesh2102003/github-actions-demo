@@ -10,25 +10,6 @@ env:
   GLOBAL_VAR: "This is a workflow-level variable"
 
 jobs:
-  env-job:
-    name: Using Environment Variables
-    runs-on: ubuntu-latest
-
-    env:
-      JOB_VAR: "This is a job-level variable"
-
-    steps:
-      - name: Print Global Variable
-       # run: echo "Global Variable: $GLOBAL_VAR"
-
-      - name: Print Job Variable
-      #  run: echo "Job Variable: $JOB_VAR"
-
-      - name: Define a Step Variable
-        env:
-          STEP_VAR: "This is a step-level variable"
-      #  run: echo "Step Variable: $STEP_VAR"
-
   secret-job:
     name: Using Secrets
     runs-on: ubuntu-latest
