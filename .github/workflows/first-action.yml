@@ -8,8 +8,9 @@ on:
         default: "staging"
         type: choice
         options:
-          - staging
-          - production
+          - Development
+          - Testing
+          - Deployment
 
 jobs:
   deploy:
