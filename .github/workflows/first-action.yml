@@ -1,4 +1,4 @@
-name: Cache Demo
+name: Flask App CI
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  cache-example:
+  run-flask-app:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,14 +29,14 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Python Application
-        run: python app.py
-
       - name: Run Flask App
-        run: python app.py &
+        run: nohup python app.py > flask.log 2>&1 &
 
       - name: Wait for 30 seconds
         run: sleep 30
 
       - name: Stop Flask App
         run: pkill -f "python app.py"
+
+      - name: Display Flask Log
+        run: cat flask.log
