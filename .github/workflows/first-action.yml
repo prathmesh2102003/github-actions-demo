@@ -1,24 +1,35 @@
-name: Secrets and Env Vars Demo
+name: Artifacts Demo
 
 on:
   push:
     branches:
-      - master
-
-# 🔹 Define Workflow-Level Environment Variables
-env:
-  GLOBAL_VAR: "This is a workflow-level variable"
+      - main
 
 jobs:
-  secret-job:
-    name: Using Secrets
+  generate-artifact:
+    name: Generate and Upload Artifact
     runs-on: ubuntu-latest
 
     steps:
-      - name: Access Secret
-        env:
-          SECRET_VALUE: ${{ secrets.MY_SECRET }}
-          API_KEY: ${{ secrets.API_KEY }}
-        run: |
-          echo "The secret value is: $SECRET_VALUE"
-          echo "API Key is: $API_KEY"
+      - name: Create a Sample File
+        run: echo "Hello, this is a log file from GitHub Actions!" > my_log.txt
+
+      - name: Upload the Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: my_log.txt
+
+  download-artifact:
+    name: Download and Use Artifact
+    runs-on: ubuntu-latest
+    needs: generate-artifact  # This job runs AFTER generate-artifact
+
+    steps:
+      - name: Download the Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-artifact
+
+      - name: Display Artifact Content
+        run: cat my_log.txt
