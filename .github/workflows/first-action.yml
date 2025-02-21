@@ -1,4 +1,4 @@
-name: Artifacts Demo
+name: Cache Demo (Python)
 
 on:
   push:
@@ -6,49 +6,25 @@ on:
       - master
 
 jobs:
-  generate-artifact:
-    name: Generate and Upload Artifact
-    runs-on: windows-latest
+  cache-dependencies:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Create a Sample File
-        run: echo Hello, this is a log file from GitHub Actions! > my_log.txt
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Upload the Artifact with retention
-        uses: actions/upload-artifact@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          name: my-artifact
-          path: my_log.txt
-          retention-days: 5  
+          python-version: '3.10'
 
-      - name: Create a Sample File 1
-        run: echo Hello, this is a first log file from GitHub Actions! > my_log1.txt
-
-      - name: Upload the 2nd Artifact with retention
-        uses: actions/upload-artifact@v4
+      - name: Cache Python Packages
+        uses: actions/cache@v4
         with:
-          name: my-artifact1 
-          path: my_log1.txt
-          retention-days: 1
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-
 
-  download-artifact:
-    name: Download and Use Artifact
-    runs-on: windows-latest  
-    needs: generate-artifact
-
-    steps:
-      - name: Download the Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: my-artifact
-
-      - name: Download the 2nd Artifact file
-        uses: actions/download-artifact@v4
-        with:
-          name: my-artifact1  
-
-      - name: Display Artifact Content
-        run: type my_log.txt 
-
-      - name: Display Artifact 1 Content
-        run: type my_log1.txt
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
