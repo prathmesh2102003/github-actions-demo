@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch: 
+  workflow_dispatch:  # ✅ Allows manual execution from GitHub Actions UI
 
 jobs:
   run-js-action:
@@ -17,13 +17,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 
+          node-version: 20  # ✅ Ensures Node.js is available
+
       - name: Install Dependencies
         run: |
           cd js-action
-          npm install 
+          npm install  # ✅ Installs @actions/core
 
       - name: Use JavaScript Action
-        uses: ./js-action 
+        uses: ./js-action  # ✅ Calls the custom JavaScript action
         with:
-          username: "Prathamesh"
+          username: "Owner"
