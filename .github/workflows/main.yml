@@ -1,3 +1,9 @@
+name: Custom Action Demo
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   run-custom-action:
     runs-on: ubuntu-latest
@@ -7,6 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Use Custom Action
-        uses: ./custom-action
+        uses: ./custom-action 
         with:
-          username: "Prathamesh"
+          username: "Owner"
+
