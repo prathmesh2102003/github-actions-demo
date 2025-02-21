@@ -3,7 +3,7 @@ name: Secrets and Env Vars Demo
 on:
   push:
     branches:
-      - main
+      - master
 
 # 🔹 Define Workflow-Level Environment Variables
 env:
