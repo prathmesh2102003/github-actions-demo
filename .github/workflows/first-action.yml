@@ -8,7 +8,7 @@ on:
 jobs:
   generate-artifact:
     name: Generate and Upload Artifact
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Create a Sample File
