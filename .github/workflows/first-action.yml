@@ -6,23 +6,25 @@ on:
       - master
 
 jobs:
-  ubuntu-job:
+  job1:
     name: Run on Ubuntu
     runs-on: ubuntu-latest
     steps:
       - name: Print OS Info
         run: cat /etc/os-release
 
-  windows-job:
+  job2:
     name: Run on Windows
     runs-on: windows-latest
+    needs: job1  # Runs after job1 completes successfully
     steps:
       - name: Print OS Info
         run: systeminfo
 
-  macos-job:
+  job3:
     name: Run on macOS
     runs-on: macos-latest
+    needs: job2  # Runs after job2 completes successfully
     steps:
       - name: Print OS Info
         run: uname -a
