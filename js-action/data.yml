@@ -1,0 +1,10 @@
+name: "Custom JavaScript Action"
+description: "A simple JavaScript action that prints a message."
+author: "Your Name"
+inputs:
+  username:
+    description: "The name of the user"
+    required: true
+runs:
+  using: "node20"
+  main: "index.js"
