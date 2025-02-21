@@ -1,9 +1,6 @@
 name: JavaScript Action Demo
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:  # ✅ Allows manual execution from GitHub Actions UI
 
 jobs:
