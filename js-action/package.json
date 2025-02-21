@@ -1,0 +1,12 @@
+{
+  "name": "github-actions-js",
+  "version": "1.0.0",
+  "description": "A custom JavaScript action for GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0"
+  }
+}
