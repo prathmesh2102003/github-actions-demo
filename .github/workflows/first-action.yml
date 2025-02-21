@@ -3,7 +3,7 @@ name: Artifacts Demo
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   generate-artifact:
