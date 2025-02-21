@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
   run-js-action:
@@ -14,7 +14,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 
+      - name: Install Dependencies
+        run: |
+          cd js-action
+          npm install 
+
       - name: Use JavaScript Action
         uses: ./js-action 
         with:
-          username: "Owner"
+          username: "Prathamesh"
