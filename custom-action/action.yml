@@ -1,0 +1,14 @@
+name: "Greet User"
+description: "Prints a custom greeting message"
+author: "Owner"
+inputs:
+  username:
+    description: "The name of the user"
+    required: true
+    default: "GitHub Actions User"
+runs:
+  using: "composite"
+  steps:
+    - name: Print Greeting
+      run: echo "Hello, ${{ inputs.username }}! Welcome to GitHub Actions!"
+      shell: bash
