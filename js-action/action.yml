@@ -1,0 +1,11 @@
+name: "JavaScript Greeting Action"
+description: "Prints a greeting message using JavaScript"
+author: "Owner"
+inputs:
+  username:
+    description: "The name of the user"
+    required: true
+    default: "GitHub Actions User"
+runs:
+  using: "node16"
+  main: "index.js"
