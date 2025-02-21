@@ -14,11 +14,22 @@ jobs:
       - name: Create a Sample File
         run: echo "Hello, this is a log file from GitHub Actions!" > my_log.txt
 
-      - name: Upload the Artifact
+      - name: Upload the Artifact with retentions
         uses: actions/upload-artifact@v4
         with:
           name: my-artifact
           path: my_log.txt
+          retention days: 5 #you can set values between 1 to 90
+          
+      - name: Create a Sample File 1
+        run: echo "Hello, this is a first log file from GitHub Actions!" > my_log1.txt
+
+      - name: Upload the Artifact with retentions1
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact1
+          path: my_log1.txt
+          retention days: 1 #you can set values between 1 to 90    
 
   download-artifact:
     name: Download and Use Artifact
@@ -30,6 +41,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: my-artifact
+      - name: Download the 2nd Artifact file
+        uses: actions/download-artifact@v4
+        with:
+         name: myartifact1
 
       - name: Display Artifact Content
         run: cat my_log.txt
+        
+      - name: Display Artifact 1 Content
+        run: cat my_log1.txt
