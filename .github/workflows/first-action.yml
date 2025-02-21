@@ -31,3 +31,12 @@ jobs:
 
       - name: Run Python Application
         run: python app.py
+
+      - name: Run Flask App
+        run: python app.py &
+
+      - name: Wait for 30 seconds
+        run: sleep 30
+
+      - name: Stop Flask App
+        run: pkill -f "python app.py"
