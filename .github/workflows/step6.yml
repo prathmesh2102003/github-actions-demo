@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+# 🔹 Define Workflow-Level Environment Variables
 env:
   GLOBAL_VAR: "This is a workflow-level variable"
 
@@ -12,20 +13,21 @@ jobs:
   env-job:
     name: Using Environment Variables
     runs-on: ubuntu-latest
+
     env:
       JOB_VAR: "This is a job-level variable"
-      
+
     steps:
       - name: Print Global Variable
-        run: echo "Global Variable: ${{ env.GLOBAL_VAR }}"
+       # run: echo "Global Variable: $GLOBAL_VAR"
 
       - name: Print Job Variable
-        run: echo "Job Variable: ${{ env.JOB_VAR }}"
+      #  run: echo "Job Variable: $JOB_VAR"
 
       - name: Define a Step Variable
         env:
           STEP_VAR: "This is a step-level variable"
-        run: echo "Step Variable: ${{ env.STEP_VAR }}"
+      #  run: echo "Step Variable: $STEP_VAR"
 
   secret-job:
     name: Using Secrets
@@ -35,4 +37,7 @@ jobs:
       - name: Access Secret
         env:
           SECRET_VALUE: ${{ secrets.MY_SECRET }}
-        run: echo "The secret is: ${{ env.SECRET_VALUE }}"
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "The secret value is: $SECRET_VALUE"
+          echo "API Key is: $API_KEY"
