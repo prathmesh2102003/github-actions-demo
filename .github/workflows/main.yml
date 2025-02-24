@@ -1,27 +1,19 @@
-name: JavaScript Action Demo
+name: Env and Secrets Demo
 
 on:
-  workflow_dispatch:  # ✅ Allows manual execution from GitHub Actions UI
+  workflow_dispatch:
 
 jobs:
-  run-js-action:
+  demo-job:
     runs-on: ubuntu-latest
-
+    env:
+      APP_NAME: "My GitHub Actions App"
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20  # ✅ Ensures Node.js is available
-
-      - name: Install Dependencies
+      - name: Display Environment Variables
         run: |
-          cd js-action
-          npm install  # ✅ Installs @actions/core
+          echo "App Name: $APP_NAME"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
 
-      - name: Use JavaScript Action
-        uses: ./js-action  # ✅ Calls the custom JavaScript action
-        with:
-          username: "Owner"
+      - name: Access a Secret
+        run: echo "The secret greeting is ${{ secrets.GREETING }}"
